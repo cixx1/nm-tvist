@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+/*
+  Fargene er trukket fra hero.png (havet, himmelen, seilene) og kombinert
+  med energien fra design-referansen (kobolt-blå base, lime aksent).
+  Vi bruker oklch fordi den oppfører seg perseptuelt likt — like steg
+  i lyshet ser like ut, noe HSL ikke gir oss.
+*/
+
+@theme {
+  --color-deep: oklch(0.18 0.04 245);
+  --color-ink: oklch(0.10 0.03 245);
+  --color-sea: oklch(0.42 0.10 245);
+  --color-sea-mid: oklch(0.55 0.07 240);
+  --color-mist: oklch(0.78 0.025 240);
+  --color-cobalt: oklch(0.45 0.24 263);
+  --color-cobalt-deep: oklch(0.34 0.22 263);
+  --color-lime: oklch(0.93 0.21 113);
+  --color-lime-deep: oklch(0.78 0.22 118);
+  --color-paper: oklch(0.96 0.012 95);
+  --color-paper-warm: oklch(0.92 0.025 88);
+  --color-sail: oklch(0.86 0.04 80);
+  --color-bone: oklch(0.84 0.04 78);
+  --color-sage: oklch(0.55 0.05 145);
+  --color-fog: oklch(0.82 0.02 240);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+}
+
+:root {
+  color-scheme: light;
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-feature-settings: "ss01", "ss02", "cv11";
+}
+
+/*
+  En stor rombe-divider — brukes i ticker-linjene under hero
+  for å matche stilen til design-referansen.
+*/
+.diamond::before {
+  content: "";
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  margin: 0 0.9em;
+  background: currentColor;
+  transform: rotate(45deg);
+  vertical-align: middle;
+}
+
+/* Animert ticker som ruller fra høyre mot venstre. */
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker {
+  animation: ticker 40s linear infinite;
+}
+
+/* Liten tonet scrollbar for kontekst med mørk hero. */
+@media (pointer: fine) {
+  ::selection {
+    background: var(--color-lime);
+    color: var(--color-deep);
+  }
+}
+
+/*
+  Overstyrer Leaflets default popup-skall slik at det matcher
+  resten av siten (skarpe hjørner, papirfarge, ingen avrunding).
+*/
+.leaflet-popup-content-wrapper {
+  border-radius: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  box-shadow: 0 12px 32px oklch(0.10 0.03 245 / 0.25);
+  padding: 0;
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  width: 260px !important;
+}
+
+.leaflet-popup-tip {
+  background: var(--color-paper);
+  box-shadow: none;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  color: var(--color-ink);
+  padding: 8px;
+}
+
+.leaflet-container {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}

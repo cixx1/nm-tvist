@@ -1,0 +1,50 @@
+[
+  {
+    "id": "bystranda",
+    "name": "Bystranda",
+    "lat": 58.1456,
+    "lng": 8.0089,
+    "description": "Bystranda er bystranden i sentrum av Kristiansand. Brukes til familieaktiviteter og workshops under arrangementet.",
+    "address": "Østre Strandgate, 4610 Kristiansand"
+  },
+  {
+    "id": "lagholmen",
+    "name": "Lagholmen",
+    "lat": 58.1428,
+    "lng": 8.0072,
+    "description": "Hovedhavn for skipene under Tall Ships Races. Her ligger storparten av flåten ved kai og er åpen for publikum.",
+    "address": "Lagmannsholmen, 4611 Kristiansand"
+  },
+  {
+    "id": "kilden",
+    "name": "Kilden Teater og Konserthus",
+    "lat": 58.145,
+    "lng": 7.9926,
+    "description": "Konserthus på Odderøya med flere saler. Vert for konserter og seremonier under festivalen.",
+    "address": "Sjølystveien 2, 4610 Kristiansand"
+  },
+  {
+    "id": "odderoya",
+    "name": "Odderøya",
+    "lat": 58.1402,
+    "lng": 7.9928,
+    "description": "Halvøy sør for sentrum med turstier, fyrtårn og uteområder. Aktuell for vandringer og uteopplevelser.",
+    "address": "Odderøya, 4610 Kristiansand"
+  },
+  {
+    "id": "christianholm",
+    "name": "Christianholm Festning",
+    "lat": 58.1463,
+    "lng": 8.0048,
+    "description": "Gammel festning fra 1672 like ved Bystranda. Brukes til mindre arrangementer og omvisninger.",
+    "address": "Østre Strandgate 32B, 4610 Kristiansand"
+  },
+  {
+    "id": "tresse",
+    "name": "Tresse / Festningsgata",
+    "lat": 58.1468,
+    "lng": 7.9968,
+    "description": "Stor åpen plass i sentrum, brukt som hovedscene og samlingspunkt for parader.",
+    "address": "Festningsgata, 4611 Kristiansand"
+  }
+]
