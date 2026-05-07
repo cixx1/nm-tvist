@@ -10,8 +10,8 @@
   {
     "id": "lagholmen",
     "name": "Lagholmen",
-    "lat": 58.1428,
-    "lng": 8.0072,
+    "lat": 58.1402,
+    "lng": 7.9928,
     "description": "Hovedhavn for skipene under Tall Ships Races. Her ligger storparten av flåten ved kai og er åpen for publikum.",
     "address": "Lagmannsholmen, 4611 Kristiansand"
   },
@@ -26,8 +26,8 @@
   {
     "id": "odderoya",
     "name": "Odderøya",
-    "lat": 58.1402,
-    "lng": 7.9928,
+    "lat": 58.1395,
+    "lng": 7.9990,
     "description": "Halvøy sør for sentrum med turstier, fyrtårn og uteområder. Aktuell for vandringer og uteopplevelser.",
     "address": "Odderøya, 4610 Kristiansand"
   },

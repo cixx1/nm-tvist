@@ -16,10 +16,14 @@ const Map = dynamic(() => import("./Map"), {
   ),
 });
 
-export default function MapWrapper() {
+interface Props {
+  currentTime: Date;
+}
+
+export default function MapWrapper({ currentTime }: Props) {
   return (
     <div className="h-[70vh] min-h-[600px] w-full overflow-hidden">
-      <Map />
+      <Map currentTime={currentTime} />
     </div>
   );
 }

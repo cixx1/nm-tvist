@@ -4,9 +4,10 @@ import Image from "next/image";
 import { useState } from "react";
 import type { ShipClass } from "@/types";
 
-// Viser et skipsbilde fra /ships/{id}.jpg. Hvis bildet ikke finnes,
-// faller komponenten tilbake til en farget plate med skipets initial.
-// Fargen avhenger av klassen (A til D).
+// Viser et skipsbilde basert på `image`-feltet fra ships.json
+// (typisk /ships/{id}.jpg, men noen filer er .png eller .jpeg).
+// Hvis bildet feiler å laste, faller komponenten tilbake til en
+// farget plate med skipets initial. Fargen avhenger av klassen.
 
 type Size = "thumbnail" | "card" | "hero";
 
@@ -14,6 +15,7 @@ interface Props {
   shipId: string;
   shipName: string;
   shipClass: ShipClass;
+  imageSrc?: string;
   size?: Size;
   className?: string;
 }
@@ -38,6 +40,7 @@ export default function ShipImage({
   shipId,
   shipName,
   shipClass,
+  imageSrc,
   size = "card",
   className = "",
 }: Props) {
@@ -45,6 +48,7 @@ export default function ShipImage({
   const { w, h, letter } = dims[size];
   const colors = classColors[shipClass];
   const initial = shipName.charAt(0).toUpperCase();
+  const src = imageSrc ?? `/ships/${shipId}.jpg`;
 
   if (failed) {
     return (
@@ -70,7 +74,7 @@ export default function ShipImage({
 
   return (
     <Image
-      src={`/ships/${shipId}.jpg`}
+      src={src}
       alt={shipName}
       width={w}
       height={h}

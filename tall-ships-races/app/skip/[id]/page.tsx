@@ -70,6 +70,7 @@ function ShipHero({ ship }: { ship: Ship }) {
           shipId={ship.id}
           shipName={ship.name}
           shipClass={ship.shipClass}
+          imageSrc={ship.image}
           size="hero"
           className="h-full w-full opacity-65"
         />

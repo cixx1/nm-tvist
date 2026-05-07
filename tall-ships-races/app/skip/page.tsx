@@ -95,6 +95,7 @@ export default async function SkipListing({
                       shipId={s.id}
                       shipName={s.name}
                       shipClass={s.shipClass}
+                      imageSrc={s.image}
                       size="thumbnail"
                       className="h-full w-full"
                     />

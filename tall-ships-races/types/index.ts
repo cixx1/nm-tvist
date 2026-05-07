@@ -3,7 +3,24 @@
 
 export type ShipClass = "A" | "B" | "C" | "D";
 
-export type ShipType = "Fullrigger" | "Bark" | "Skonnert" | "Brigg";
+export type ShipType =
+  | "Fullrigger"
+  | "Bark"
+  | "Skonnert"
+  | "Brigg"
+  | "Brigantin";
+
+export interface Waypoint {
+  lat: number;
+  lng: number;
+  timestamp: string;
+  label?: string;
+}
+
+export interface RaceResult {
+  position: number;
+  note?: string;
+}
 
 export interface Ship {
   id: string;
@@ -19,6 +36,9 @@ export interface Ship {
   description: string;
   captain: string;
   crewSize: number;
+  route?: Waypoint[];
+  berthName?: string;
+  raceResult?: RaceResult;
 }
 
 export type EventType =

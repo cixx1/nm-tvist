@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { getEvents, getLocations } from "@/lib/data";
 import { formatEventDate } from "@/lib/format";
-import MapWrapper from "@/components/MapWrapper";
+import MapWithTimeMachine from "@/components/MapWithTimeMachine";
 import type { Event, Location } from "@/types";
 
 // Kartside. Selve kartet kjører klient-side via MapWrapper.
@@ -48,9 +48,15 @@ export default async function KartPage() {
         </div>
       </section>
 
-      {/* KART */}
+      {/* TIDSKONTROLL + KART */}
       <section className="relative">
-        <MapWrapper />
+        <MapWithTimeMachine />
+        <p className="mx-auto max-w-[1400px] px-5 py-6 text-sm leading-relaxed text-ink/60 sm:px-8">
+          Race-rutene over er forenklet basert på de faktiske start- og
+          målpunktene for Race 4 (Kristiansand–Esbjerg). I et
+          produksjonssystem ville posisjonene kommet fra YB Tracking-
+          systemet som hver tall ship er utstyrt med under racet.
+        </p>
       </section>
 
       {/* LOKASJONSLISTE */}
