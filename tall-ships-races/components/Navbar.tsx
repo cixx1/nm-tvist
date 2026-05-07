@@ -15,12 +15,17 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [lastPathname, setLastPathname] = useState(pathname);
 
-  // Lukk meny når man bytter side eller trykker Escape.
-  useEffect(() => {
+  // Reset under render når ruten endres — Reacts anbefalte mønster
+  // for å derive state fra props/context uten ekstra effect-pass.
+  if (pathname !== lastPathname) {
+    setLastPathname(pathname);
     setOpen(false);
-  }, [pathname]);
+  }
 
+  // Escape-lytter mens menyen er åpen. setOpen-kallet skjer i en
+  // ekstern callback (ikke synkront i effect-bodyen) — det er trygt.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {

@@ -72,7 +72,9 @@ export async function POST(request: Request) {
     );
   }
 
-  // Lagre booking i bookings.json.
+  // Lagre booking i bookings.json. På serverless-plattformer (Vercel)
+  // er filsystemet read-only, så skrivingen kan kaste EROFS/EACCES.
+  // Vi fanger det og returnerer en tydelig 503 i stedet for å krasje.
   const bookings = await getBookings();
   const booking: Booking = {
     id: randomUUID(),
@@ -84,7 +86,21 @@ export async function POST(request: Request) {
     createdAt: new Date().toISOString(),
   };
   bookings.push(booking);
-  await writeBookings(bookings);
+  try {
+    await writeBookings(bookings);
+  } catch (err) {
+    const code = (err as NodeJS.ErrnoException)?.code;
+    if (code === "EROFS" || code === "EACCES") {
+      return Response.json(
+        {
+          error:
+            "Booking er ikke tilgjengelig i denne demoen. Endepunktet fungerer kun lokalt.",
+        },
+        { status: 503 },
+      );
+    }
+    throw err;
+  }
 
   return Response.json(booking, { status: 201 });
 }

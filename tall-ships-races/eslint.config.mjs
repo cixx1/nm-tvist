@@ -12,6 +12,12 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Skill-cache fra agent-verktøyene — gitignored og ikke prosjektkode.
+    ".agents/**",
+    ".claude/**",
+    ".codex/**",
+    ".cursor/**",
+    ".gemini/**",
   ]),
 ]);
 
