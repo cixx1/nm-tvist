@@ -12,6 +12,10 @@ const links = [
   { href: "/kart", label: "Kart" },
 ];
 
+function isActive(pathname: string, href: string): boolean {
+  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+}
+
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -24,8 +28,6 @@ export default function Navbar() {
     setOpen(false);
   }
 
-  // Escape-lytter mens menyen er åpen. setOpen-kallet skjer i en
-  // ekstern callback (ikke synkront i effect-bodyen) — det er trygt.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -40,26 +42,26 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-5 pt-5 sm:px-8 sm:pt-7">
         <Link
           href="/"
-          className="font-display text-base uppercase tracking-[0.18em] text-paper"
+          className="font-display text-base font-black uppercase tracking-[0.18em] text-paper"
           aria-label="Forsiden"
         >
           TSR <span className="text-lime">Kristiansand</span>
         </Link>
 
-        <nav className="hidden md:block">
-          <ul className="flex items-center gap-1 rounded-full border border-paper/25 bg-paper/10 p-1 backdrop-blur-md">
+        <nav className="hidden md:block" aria-label="Hovedmeny">
+          <ul className="flex items-center gap-2 lg:gap-3">
             {links.map((l) => {
-              const active =
-                l.href === "/" ? pathname === "/" : pathname.startsWith(l.href);
+              const active = isActive(pathname, l.href);
               return (
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className={`block rounded-full px-4 py-2 text-sm tracking-wide transition-colors ${
+                    aria-current={active ? "page" : undefined}
+                    className={
                       active
-                        ? "bg-paper text-deep"
-                        : "text-paper hover:bg-paper/15"
-                    }`}
+                        ? "block bg-lime px-4 py-2 font-display text-sm font-black uppercase tracking-[0.12em] text-deep"
+                        : "block px-4 py-2 font-display text-sm font-black uppercase tracking-[0.12em] text-paper underline-offset-[6px] decoration-2 decoration-lime hover:underline"
+                    }
                   >
                     {l.label}
                   </Link>
@@ -74,25 +76,37 @@ export default function Navbar() {
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Lukk meny" : "Åpne meny"}
           aria-expanded={open}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-paper/30 bg-paper/10 text-paper backdrop-blur-md md:hidden"
+          className="flex h-11 w-11 items-center justify-center border border-paper/30 text-paper transition-colors hover:border-lime hover:text-lime md:hidden"
         >
-          {open ? <X size={20} /> : <Menu size={20} />}
+          {open ? (
+            <X size={22} strokeWidth={1.8} />
+          ) : (
+            <Menu size={22} strokeWidth={1.8} />
+          )}
         </button>
       </div>
 
-      {open && (
-        <div className="mx-5 mt-3 rounded-3xl border border-paper/20 bg-deep/95 p-2 backdrop-blur-md md:hidden">
-          <ul className="flex flex-col">
+      {open ? (
+        <nav
+          aria-label="Hovedmeny"
+          className="border-y border-paper/20 bg-deep md:hidden"
+        >
+          <ul>
             {links.map((l) => {
-              const active =
-                l.href === "/" ? pathname === "/" : pathname.startsWith(l.href);
+              const active = isActive(pathname, l.href);
               return (
-                <li key={l.href}>
+                <li
+                  key={l.href}
+                  className="border-b border-paper/15 last:border-b-0"
+                >
                   <Link
                     href={l.href}
-                    className={`block rounded-2xl px-4 py-3 text-base tracking-wide ${
-                      active ? "bg-paper text-deep" : "text-paper"
-                    }`}
+                    aria-current={active ? "page" : undefined}
+                    className={
+                      active
+                        ? "block bg-lime px-5 py-5 font-display text-3xl font-black uppercase tracking-tight text-deep"
+                        : "block px-5 py-5 font-display text-3xl font-black uppercase tracking-tight text-paper hover:bg-paper/5"
+                    }
                   >
                     {l.label}
                   </Link>
@@ -100,8 +114,8 @@ export default function Navbar() {
               );
             })}
           </ul>
-        </div>
-      )}
+        </nav>
+      ) : null}
     </header>
   );
 }
