@@ -2,46 +2,91 @@
 
 Skoleprosjekt: nettside for Tall Ships Races når regattaen stopper i Kristiansand 30. juli til 2. august 2025. Forsiden viser nedtelling, oversikt og lenker videre til skip, arrangementer og kart med animert race-sporing.
 
-Laget av Cornelius og Elias, IT-driftsfag VG2, Tangen VGS. Presentasjon mai 2026.
+Laget av **Cornelius og Elias**, IT-driftsfag VG2, Tangen VGS. Presentasjon mai 2026.
 
-## Tech stack
+---
 
-- Next.js 16.2 (App Router, Turbopack)
-- React 19.2
-- TypeScript 5
-- Tailwind CSS v4 (PostCSS plugin)
-- lucide-react (ikoner)
-- leaflet 1.9 + react-leaflet 5 (kart)
-- date-fns 4
+## For læreren — sånn starter du prosjektet
 
-## Kjør lokalt
+### 1. Forutsetninger
+
+Du trenger **Node.js 20.9 eller nyere** installert. Sjekk versjonen med:
+
+```bash
+node --version
+```
+
+Hvis du ikke har Node, last ned fra <https://nodejs.org> (velg LTS-versjonen).
+
+### 2. Installer avhengigheter
+
+Åpne en terminal i `tall-ships-races/`-mappen og kjør:
 
 ```bash
 npm install
+```
+
+Dette tar 30–60 sekunder første gang og laster ned alle pakkene prosjektet bruker. Du kan se advarsler — det er normalt, så lenge det ikke står `ERR!`.
+
+### 3. Start utviklingsserveren
+
+```bash
 npm run dev
 ```
 
-Standardport er 3000 (eller første ledige). Andre kommandoer:
+Du får en melding som ligner:
 
-```bash
-npm run build       # produksjonsbygg
-npm run start       # serv produksjonsbygget
-npm run lint        # ESLint
-npm run typecheck   # tsc --noEmit
+```
+▲ Next.js 16.2.5
+- Local:    http://localhost:3000
+✓ Ready in 1.2s
 ```
 
-Krever Node 20.9 eller nyere.
+Åpne **<http://localhost:3000>** i nettleseren. Hvis port 3000 er opptatt velger Next.js neste ledige port (3001, 3002 …) — sjekk meldingen i terminalen.
 
-## Sider
+For å stoppe serveren: trykk `Ctrl + C` i terminalen.
 
-| Rute | Innhold |
-| ---- | ------- |
-| `/` | Hero med nedtelling, oversikt over de tre undersidene, om-Tall-Ships-blokk, footer. |
-| `/skip` | Listing av alle åtte deltakerskip med klassefilter via URL (`?klasse=A`). |
-| `/skip/[id]` | Detaljside med bilde, fakta-grid, beskrivelse og knyttede arrangementer. |
-| `/arrangementer` | Program gruppert per dag, filtrerbart på type og dato (`?type=konsert&dato=2025-07-31`). |
-| `/arrangementer/[id]` | Detaljside med tid, lokasjon, beskrivelse, kapasitet, knyttet skip og andre samme dag. |
-| `/kart` | Leaflet-kart med animert Race 4-sporing (Kristiansand → Esbjerg) og 6 sentrumslokasjoner. TimeMachine over kartet med play, slider, 4 hastigheter og presets. |
+### 4. Hva du bør klikke deg gjennom
+
+| Side | URL | Hva å se etter |
+| ---- | --- | -------------- |
+| **Forside** | `/` | Hero-bilde, nedtelling til 30. juli 2025, tre kort som lenker videre, om-Tall-Ships-blokk og footer. |
+| **Skip** | `/skip` | Liste over alle åtte deltakerskip. Klikk på filter-knappene (Klasse A/B/C/D) — URL-en endres til `?klasse=A` slik at filteret kan bokmerkes. |
+| **Skip-detalj** | `/skip/[id]` | Klikk et hvilket som helst skip. Du får bilde, fakta-grid, beskrivelse og hvilke arrangementer skipet er knyttet til. |
+| **Arrangementer** | `/arrangementer` | Programmet gruppert per dag. Bruk filtrene for type (konsert, parade, omvisning …) og dato — URL-en oppdateres på samme måte (`?type=konsert&dato=2025-07-31`). |
+| **Arrangement-detalj** | `/arrangementer/[id]` | Klikk et arrangement. Du får tid, sted, beskrivelse, kapasitet og andre arrangementer samme dag. |
+| **Kart** | `/kart` | Leaflet-kart med 6 sentrumslokasjoner og animert sporing av Race 4 (Kristiansand → Esbjerg). Bruk **TimeMachine**-panelet over kartet: trykk play, dra slideren, bytt mellom 4 hastigheter, eller bruk presets for å hoppe direkte til viktige tidspunkter. |
+
+### 5. Hvis noe ikke fungerer
+
+| Problem | Løsning |
+| ------- | ------- |
+| `command not found: npm` | Node.js er ikke installert. Se punkt 1. |
+| Feil ved `npm install` | Slett `node_modules/`-mappen og `package-lock.json`, og kjør `npm install` på nytt. |
+| `EADDRINUSE` / port opptatt | En annen app bruker port 3000. Next.js velger neste ledige port — les terminalen. |
+| Kart-siden er blank | Sjekk at du har internett (kartfliser hentes fra OpenStreetMap). |
+| `npm run dev` henger | Trykk `Ctrl + C`, og prøv `npm run build && npm run start` i stedet. |
+
+---
+
+## Andre kommandoer
+
+```bash
+npm run build       # produksjonsbygg (sjekker også typer og bygger optimalisert)
+npm run start       # serv produksjonsbygget på port 3000
+npm run lint        # ESLint — sjekker kodekvalitet
+npm run typecheck   # tsc --noEmit — sjekker TypeScript-typer uten å bygge
+```
+
+## Tech stack
+
+- **Next.js 16.2** (App Router, Turbopack)
+- **React 19.2**
+- **TypeScript 5**
+- **Tailwind CSS v4** (PostCSS plugin)
+- **lucide-react** — ikoner
+- **leaflet 1.9 + react-leaflet 5** — kart
+- **date-fns 4** — datohåndtering
 
 ## Mappestruktur
 
@@ -54,7 +99,7 @@ app/                Sider og API-ruter (App Router)
   layout.tsx        Rotlayout, fonter og navbar
   page.tsx          Forside
   globals.css       Tailwind v4 + fargepalett (oklch)
-components/         Klient- og UI-komponenter
+components/         Klient- og UI-komponenter (Countdown, Map, TimeMachine, Navbar …)
 data/               JSON-filer med skip, arrangementer, lokasjoner, bookinger
 lib/                data.ts, format.ts, shipPosition.ts (race-interpolasjon)
 public/             Statiske filer (hero.png, ships/*.jpg)
@@ -96,6 +141,8 @@ GET /api/ships/positions?at=2025-08-03T18:00:00Z
   }
 ]
 ```
+
+Du kan teste API-ene direkte i nettleseren mens dev-serveren kjører, f.eks. <http://localhost:3000/api/ships>.
 
 ## Deployment til Vercel
 
